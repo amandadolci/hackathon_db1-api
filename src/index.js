@@ -1,7 +1,14 @@
 const express = require('express');
 const sequelize = require('./config/database');
 const productRoutes = require('./routes/productRoutes');
+const cors = require('cors');
+const path = require('path');
+
 const app = express();
+
+app.use(cors({ origin: 'http://localhost:5173' }));
+
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 sequelize.sync().then(() => console.log('Database connected.'));
 
